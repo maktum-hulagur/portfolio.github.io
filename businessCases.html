@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Business Cases Analysis - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease-out;
+            /* background: linear-gradient(45deg, #05ccf4, #03b5f1); */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-color: #00d4ff;
+        }
+
+        
+        .hero p {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            color: #b8c5d6;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(30, 60, 114, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        }
+
+        .nav-menu a {
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .business-case-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: slideInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .business-case-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff, #ff00ff, #00d4ff);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #00d4ff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #b8c5d6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .concept-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .concept-card:hover::before {
+            left: 100%;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .concept-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #00d4ff;
+        }
+
+        .concept-card p {
+            color: #b8c5d6;
+            margin-bottom: 15px;
+        }
+
+        .concept-highlight {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 0, 255, 0.2));
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #00d4ff;
+        }
+
+        .algorithm-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .code-snippet {
+            background: rgba(0, 0, 0, 0.6);
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+        }
+
+        .code-snippet::before {
+            content: 'CODE';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 255, 0.1));
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #b8c5d6;
+            font-size: 1rem;
+        }
+
+        .efficiency-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .efficiency-table th,
+        .efficiency-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .efficiency-table th {
+            background: rgba(0, 212, 255, 0.2);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .efficiency-table td {
+            color: #b8c5d6;
+        }
+
+        .inference-box {
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 212, 255, 0.1));
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #ff00ff;
+        }
+
+        .inference-box h4 {
+            color: #ff00ff;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .business-impact {
+            background: rgba(0, 255, 0, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #00ff00;
+        }
+
+        .business-impact h4 {
+            color: #00ff00;
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .business-case-section {
+                padding: 30px 20px;
+            }
+            
+            .nav-menu {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-bottom: 30px;
+            }
+
+            .concepts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Top Navbar */
+#top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #0e1a35;
+    color: white;
+    padding: 15px 30px;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+#top-navbar a {
+    color: #00d4ff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: rgba(0, 212, 255, 0.15);
+    transition: background 0.3s ease;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+
+#top-navbar a:hover {
+    background: rgba(0, 212, 255, 0.4);
+    color: white;
+  background: linear-gradient(135deg, #555, #333);
+    background-color: #ffffff;
+  color: #00d8ff;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 216, 255, 0.6);
+}
+
+#top-navbar a:hover {
+    color: #f39c12;
+  }
+
+
+/* Updated Sidebar Navigation */
+.nav-menu {
+    position: fixed;
+    top: 80px; /* Below top navbar */
+    left: 0;
+    width: 200px;
+    height: calc(100vh - 80px); /* Adjusted for top navbar height */
+    background: rgba(30, 60, 114, 0.9);
+    backdrop-filter: blur(15px);
+    border-right: 1px solid rgba(255,255,255,0.1);
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 1000;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.nav-menu a {
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-menu a:hover {
+    background: rgba(0, 212, 255, 0.2);
+    transform: translateX(5px);
+}
+
+/* Adjust content to not go under navs */
+.container {
+    margin-left: 220px; /* Space for left nav */
+    padding-top: 100px; /* Space for top nav */
+}
+
+    </style>
+</head>
+<body>
+    <div id="top-navbar">
+    <div class="logo">Case studies</div>
+    <a href="index.html">🏠 Home</a>
+    </div>
+    <div class="nav-menu">
+        <a href="#ad-auction">Ad Auction</a>
+        <a href="#search-optimization">Search Algorithm</a>
+        <a href="#youtube-recommendation">YouTube ML</a>
+        <a href="#traffic-prediction">Traffic Prediction</a>
+        <a href="#google-photos-clustering">Google Photos Clustering</a>
+        <a href="#google-assistant-voice">Google Assistant Voice Recognition</a>
+        <a href="#bigquery">Google Cloud BigQuery</a>
+        <a href="#google-pay">Google Pay</a>
+        <a href="#youtube-content-id">YouTube Automated Copyright Detection</a>
+        <a href="#youtube-premium">YouTube Premium & Music Subscriptions</a>
+
+       
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Google Business Cases Analysis</h1>
+            <p>Comprehensive Technical Implementation & Business Impact Study</p>
+        </div>
+
+        <!-- Business Case 1: Ad Auction Optimization -->
+        <section id="ad-auction" class="business-case-section">
+            <div class="section-header">
+                <h2>🎯 Ad Auction Optimization</h2>
+                <p>Real-time bidding system processing millions of ad requests per second with optimal revenue generation</p>
+            </div>
+
+            <div class="concepts-grid">
+                <div class="concept-card">
+                    <h3>Problem Statement</h3>
+                    <p>Google processes over 8.5 billion searches daily, each potentially showing multiple ads. The challenge is to conduct real-time auctions for ad placements while maximizing revenue and maintaining advertiser satisfaction.</p>
+                    <div class="concept-highlight">
+                        <strong>Key Challenge:</strong> Determine optimal ad placement in milliseconds while considering bid amount, ad quality, and user relevance.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>Core Algorithm Concepts</h3>
+                    <p>Google uses a modified second-price auction with quality scores to ensure fair bidding and relevant ads.</p>
+                    <div class="concept-highlight">
+                        <strong>Vickrey-Clarke-Groves (VCG) Mechanism:</strong><br>
+                        • Bid × Quality Score = Ad Rank<br>
+                        • Winner pays (Next Ad Rank / Quality Score) + $0.01<br>
+                        • Encourages truthful bidding
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>Data Structures Used</h3>
+                    <p>Efficient data structures enable real-time processing of auction data.</p>
+                    <div class="concept-highlight">
+                        <strong>Key Structures:</strong><br>
+                        • Priority Queue (Heap) - O(log n) bid sorting<br>
+                        • Hash Tables - O(1) advertiser lookup<br>
+                        • Bloom Filters - Duplicate bid detection<br>
+                        • Trie - Keyword matching
+                    </div>
+                </div>
+            </div>
+
+            <div class="algorithm-section">
+                <h3>Implementation: Ad Auction Algorithm</h3>
+                <div class="code-snippet">
+ <pre><code>class AdAuction:
+    def __init__(self):
+        self.advertisers = {}
+        self.quality_scores = {}
+    
+    def calculate_ad_rank(self, bid, quality_score):
+        return bid * quality_score
+    
+    def run_auction(self, keyword, ads_data):
+        # ads_data: [(advertiser_id, bid, quality_score)]
+        ranked_ads = []
+        
+        for advertiser_id, bid, quality_score in ads_data:
+            ad_rank = self.calculate_ad_rank(bid, quality_score)
+            ranked_ads.append((advertiser_id, bid, quality_score, ad_rank))
+        
+        # Sort by ad rank (descending)
+        ranked_ads.sort(key=lambda x: x[3], reverse=True)
+        
+        # Calculate actual cost for each position
+        auction_results = []
+        for i, (advertiser_id, bid, quality_score, ad_rank) in enumerate(ranked_ads):
+            if i < len(ranked_ads) - 1:
+                next_ad_rank = ranked_ads[i + 1][3]
+                actual_cost = (next_ad_rank / quality_score) + 0.01
+            else:
+                actual_cost = 0.01  # Minimum bid
+            
+            auction_results.append({
+                'advertiser_id': advertiser_id,
+                'position': i + 1,
+                'actual_cost': min(actual_cost, bid)
+            })
+        
+        return auction_results
+             </pre></code>  </div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">$224B</div>
+                    <div class="stat-label">Annual Ad Revenue</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100ms</div>
+                    <div class="stat-label">Auction Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4M+</div>
+                    <div class="stat-label">Advertisers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">80%</div>
+                    <div class="stat-label">Google's Revenue</div>
+                </div>
+            </div>
+
+            <div class="algorithm-section">
+                <h3>Efficiency Analysis</h3>
+                <table class="efficiency-table">
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Time Complexity</th>
+                            <th>Space Complexity</th>
+                            <th>Real-world Performance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bid Sorting</td>
+                            <td>O(n log n)</td>
+                            <td>O(n)</td>
+                            <td>Handles 1000+ bids per query</td>
+                        </tr>
+                        <tr>
+                            <td>Quality Score Lookup</td>
+                            <td>O(1)</td>
+                            <td>O(n)</td>
+                            <td>Instant retrieval from cache</td>
+                        </tr>
+                        <tr>
+                            <td>Ad Rank Calculation</td>
+                            <td>O(n)</td>
+                            <td>O(1)</td>
+                            <td>Computed in parallel</td>
+                        </tr>
+                        <tr>
+                            <td>Cost Per Click (CPC)</td>
+                            <td>O(n)</td>
+                            <td>O(1)</td>
+                            <td>Dynamic pricing in real-time</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="inference-box">
+                <h4>🔍 Key Inferences</h4>
+                <p><strong>Technical Innovation:</strong> The second-price auction mechanism with quality scores creates a stable marketplace where advertisers bid truthfully, leading to higher overall revenue than first-price auctions.</p>
+                <p><strong>Competitive Advantage:</strong> Machine learning models continuously optimize quality scores based on click-through rates, conversion rates, and user engagement metrics.</p>
+            </div>
+
+            <div class="business-impact">
+                <h4>💰 Business Impact</h4>
+                <p>Ad auction optimization directly contributes to 80% of Google's total revenue ($224B in 2023). The system's efficiency enables Google to serve relevant ads while maximizing revenue from each search query.</p>
+            </div>
+        </section>
+
+        <!-- Business Case 2: Search Algorithm Optimization -->
+        <section id="search-optimization" class="business-case-section">
+            <div class="section-header">
+                <h2>🔍 Search Algorithm Optimization</h2>
+                <p>Processing billions of search queries with sub-second response times using advanced ranking algorithms</p>
+            </div>
+
+            <div class="concepts-grid">
+                <div class="concept-card">
+                    <h3>Problem Statement</h3>
+                    <p>With over 15 billion web pages indexed, Google must deliver the most relevant results for 8.5 billion daily searches in under 0.2 seconds while understanding user intent and context.</p>
+                    <div class="concept-highlight">
+                        <strong>Core Challenge:</strong> Rank billions of web pages by relevance while processing natural language queries with semantic understanding.
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>PageRank Algorithm</h3>
+                    <p>Google's foundational algorithm treats the web as a graph where pages are nodes and links are edges, calculating authority scores.</p>
+                    <div class="concept-highlight">
+                        <strong>Mathematical Foundation:</strong><br>
+                        PR(A) = (1-d)/N + d × Σ(PR(Ti)/C(Ti))<br>
+                        where d = damping factor (0.85)<br>
+                        N = total pages, C(Ti) = outbound links
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>Modern Enhancements</h3>
+                    <p>RankBrain (AI), BERT (NLP), and MUM (Multimodal) enhance traditional PageRank with semantic understanding.</p>
+                    <div class="concept-highlight">
+                        <strong>AI Integration:</strong><br>
+                        • RankBrain: Query interpretation<br>
+                        • BERT: Context understanding<br>
+                        • MUM: Multimodal search<br>
+                        • E-A-T: Expertise, Authority, Trust
+                    </div>
+                </div>
+            </div>
+
+            <div class="algorithm-section">
+                <h3>Implementation: Search Ranking System</h3>
+                <div class="code-snippet">
+ <pre><code>import numpy as np
+from collections import defaultdict
+
+class SearchRankingSystem:
+    def __init__(self, damping_factor=0.85, max_iterations=100):
+        self.damping_factor = damping_factor
+        self.max_iterations = max_iterations
+        self.index = defaultdict(list)  # Inverted index
+        self.pagerank_scores = {}
+        
+    def build_inverted_index(self, documents):
+        for doc_id, content in documents.items():
+            words = content.lower().split()
+            for word in words:
+                self.index[word].append(doc_id)
+    
+    def calculate_pagerank(self, link_graph):
+        num_pages = len(link_graph)
+        pagerank = {page: 1.0/num_pages for page in link_graph}
+        
+        for iteration in range(self.max_iterations):
+            new_pagerank = {}
+            for page in link_graph:
+                rank_sum = 0
+                for linking_page in link_graph:
+                    if page in link_graph[linking_page]:
+                        outbound_links = len(link_graph[linking_page])
+                        if outbound_links > 0:
+                            rank_sum += pagerank[linking_page] / outbound_links
+                
+                new_pagerank[page] = ((1 - self.damping_factor) / num_pages + 
+                                    self.damping_factor * rank_sum)
+            
+            # Check for convergence
+            if self.has_converged(pagerank, new_pagerank):
+                break
+            pagerank = new_pagerank
+        
+        return pagerank
+    
+    def search(self, query, k=10):
+        query_words = query.lower().split()
+        candidate_docs = set()
+        
+        # Find candidate documents
+        for word in query_words:
+            candidate_docs.update(self.index.get(word, []))
+        
+        # Score documents (simplified TF-IDF + PageRank)
+        scores = {}
+        for doc_id in candidate_docs:
+            tf_idf_score = self.calculate_tf_idf(doc_id, query_words)
+            pagerank_score = self.pagerank_scores.get(doc_id, 0)
+            scores[doc_id] = 0.7 * tf_idf_score + 0.3 * pagerank_score
+        
+        # Return top-k results
+        return sorted(scores.items(), key=lambda x: x[1], reverse=True)[:k]
+              </pre> </code></div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">8.5B</div>
+                    <div class="stat-label">Daily Searches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0.2s</div>
+                    <div class="stat-label">Response Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15B</div>
+                    <div class="stat-label">Indexed Pages</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">92%</div>
+                    <div class="stat-label">Market Share</div>
+                </div>
+            </div>
+
+            <div class="inference-box">
+                <h4>🔍 Key Inferences</h4>
+                <p><strong>Algorithmic Evolution:</strong> From simple keyword matching to AI-powered semantic understanding, Google's search has evolved to understand user intent rather than just matching keywords.</p>
+                <p><strong>Scalability Achievement:</strong> The system handles 99,000+ searches per second while maintaining sub-second response times through distributed computing and caching strategies.</p>
+            </div>
+
+            <div class="business-impact">
+                <h4>💰 Business Impact</h4>
+                <p>Search algorithm optimization maintains Google's 92% market share, generating $146B in search advertising revenue annually. Superior search quality creates a self-reinforcing cycle of user adoption and advertiser investment.</p>
+            </div>
+        </section>
+<!-- Business Case 3: YouTube Content Recommendation (Completed) -->
+<section id="youtube-recommendation" class="business-case-section">
+    <div class="section-header">
+        <h2>🎮 YouTube Content Recommendation</h2>
+        <p>AI-powered recommendation system serving personalized content to 2+ billion users</p>
+    </div>
+
+    <div class="concepts-grid">
+        <div class="concept-card">
+            <h3>Problem Statement</h3>
+            <p>With 500+ hours of video uploaded every minute, YouTube must recommend relevant content from 2+ billion videos to individual users with diverse preferences and viewing patterns.</p>
+            <div class="concept-highlight">
+                <strong>Scale Challenge:</strong> Personalize content for 2+ billion users across 100+ countries with real-time preference learning and content freshness balancing.
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Machine Learning Pipeline</h3>
+            <p>Multi-stage recommendation system using collaborative filtering, content-based filtering, and deep learning models.</p>
+            <div class="concept-highlight">
+                <strong>ML Architecture:</strong><br>
+                • Candidate Generation: Neural networks<br>
+                • Ranking: Deep neural networks<br>
+                • Re-ranking: Contextual bandits<br>
+                • Real-time Learning: Online ML
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Algorithm Components</h3>
+            <p>Sophisticated recommendation algorithms combining multiple signals and feedback loops.</p>
+            <div class="concept-highlight">
+                <strong>Key Algorithms:</strong><br>
+                • Matrix Factorization: User-item interactions<br>
+                • Deep Neural Networks: Feature learning<br>
+                • Reinforcement Learning: Long-term engagement<br>
+                • Multi-armed Bandit: Exploration vs Exploitation
+            </div>
+        </div>
+    </div>
+
+    <div class="algorithm-section">
+        <h3>Implementation: Recommendation Engine</h3>
+        <div class="code-snippet">
+<pre><code>import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+
+class YouTubeRecommendationSystem:
+    def __init__(self, embedding_dim=128):
+        self.embedding_dim = embedding_dim
+        self.user_embeddings = {}
+        self.video_embeddings = {}
+        self.user_history = {}
+        self.video_features = {}
+
+    def collaborative_filtering(self, user_id, k=10):
+        if user_id not in self.user_embeddings:
+            return []
+
+        user_vector = self.user_embeddings[user_id]
+        similarities = {}
+
+        for video_id, video_vector in self.video_embeddings.items():
+            if video_id not in self.user_history.get(user_id, []):
+                similarity = cosine_similarity([user_vector], [video_vector])[0][0]
+                similarities[video_id] = similarity
+
+        return sorted(similarities.items(), key=lambda x: x[1], reverse=True)[:k]
+
+    def content_based_filtering(self, user_id, k=10):
+        if user_id not in self.user_history:
+            return []
+
+        watched_videos = self.user_history[user_id]
+        user_profile = self.build_user_profile(watched_videos)
+
+        recommendations = {}
+        for video_id, features in self.video_features.items():
+            if video_id not in watched_videos:
+                similarity = cosine_similarity([user_profile], [features])[0][0]
+                recommendations[video_id] = similarity
+
+        return sorted(recommendations.items(), key=lambda x: x[1], reverse=True)[:k]
+
+    def deep_neural_network_ranking(self, candidates, user_id):
+        user_features = self.get_user_features(user_id)
+        ranked_candidates = []
+
+        for video_id, initial_score in candidates:
+            video_features = self.video_features.get(video_id, [])
+            combined_features = np.concatenate([user_features, video_features])
+            predicted_engagement = self.predict_engagement(combined_features)
+            final_score = 0.6 * predicted_engagement + 0.4 * initial_score
+            ranked_candidates.append((video_id, final_score))
+
+        return sorted(ranked_candidates, key=lambda x: x[1], reverse=True)
+
+    def get_recommendations(self, user_id, k=20):
+        collab_candidates = self.collaborative_filtering(user_id, k*2)
+        content_candidates = self.content_based_filtering(user_id, k*2)
+        all_candidates = list(set(collab_candidates + content_candidates))
+        final_recommendations = self.deep_neural_network_ranking(all_candidates, user_id)
+        return final_recommendations[:k]</code></pre>
+        </div>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number">2B+</div>
+            <div class="stat-label">Monthly Users</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">1B</div>
+            <div class="stat-label">Hours Watched Daily</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">70%</div>
+            <div class="stat-label">Recommended Content</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">$28B</div>
+            <div class="stat-label">Annual Revenue</div>
+        </div>
+    </div>
+
+    <div class="inference-box">
+        <h4>🔍 Key Inferences</h4>
+        <p><strong>Personalization Strength:</strong> Deep learning and real-time learning models enable highly relevant recommendations tailored to individual user behavior.</p>
+        <p><strong>User Engagement:</strong> Over 70% of content watched is from recommendations, indicating the strong influence of the recommendation engine on user retention.</p>
+    </div>
+
+    <div class="business-impact">
+        <h4>💰 Business Impact</h4>
+        <p>YouTube's recommendation engine significantly increases user watch time, directly boosting ad impressions and revenue. It contributes to $28B+ in yearly revenue and maintains platform engagement across global audiences.</p>
+    </div>
+</section>
+<!-- Business Case 4: Google Maps Traffic Prediction -->
+<section id="traffic-prediction" class="business-case-section">
+    <div class="section-header">
+        <h2>🛣 Google Maps Traffic Prediction</h2>
+        <p>Predicting real-time traffic across 200+ countries using historical data, live sensor feeds, and AI models</p>
+    </div>
+
+    <div class="concepts-grid">
+        <div class="concept-card">
+            <h3>Problem Statement</h3>
+            <p>Google Maps must provide accurate ETAs and real-time routing for millions of users navigating dynamic traffic environments. This requires predicting future traffic patterns with high precision using past data, live congestion reports, and road conditions.</p>
+            <div class="concept-highlight">
+                <strong>Key Challenge:</strong> Integrate live GPS signals, historical patterns, and event-based disruptions (e.g., accidents, closures) to predict future traffic with sub-second latency.
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Core ML Concepts</h3>
+            <p>Google uses Graph Neural Networks (GNNs) over road networks along with time-series modeling (LSTM, TCN) to predict traffic flow and delays.</p>
+            <div class="concept-highlight">
+                <strong>AI Stack:</strong><br>
+                • LSTM / Temporal CNN - Predict future speeds<br>
+                • Graph Neural Networks - Capture road network topology<br>
+                • Real-Time Fusion - Blend live GPS and user-reported data<br>
+                • Kalman Filtering - Smooth traffic estimation
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Data Structures Used</h3>
+            <p>Efficient data representation allows real-time updates and routing decisions.</p>
+            <div class="concept-highlight">
+                <strong>Key Structures:</strong><br>
+                • Adjacency Lists - Road graph storage<br>
+                • Min-Heaps - Fast shortest path (Dijkstra’s variant)<br>
+                • Time Buckets - Historical pattern lookup<br>
+                • Hash Maps - Location-to-node indexing
+            </div>
+        </div>
+    </div>
+
+    <div class="algorithm-section">
+        <h3>Implementation: Simplified Traffic Prediction Model</h3>
+        <div class="code-snippet">
+<Pre><code> networkx as nx
+import numpy as np
+import matplotlib.pyplot as plt
+from collections import defaultdict
+
+# Simulate road graph
+G = nx.DiGraph()
+edges = [
+    ('A', 'B', 5), ('B', 'C', 4), ('C', 'D', 8),
+    ('A', 'D', 15), ('B', 'D', 10)
+]
+for u, v, t in edges:
+    G.add_edge(u, v, base_time=t)
+
+# Historical traffic pattern (e.g., time of day modifier)
+traffic_factor = {
+    'morning': {'A-B': 1.2, 'B-C': 1.5, 'C-D': 1.1, 'B-D': 1.3},
+    'evening': {'A-B': 1.4, 'B-C': 1.6, 'C-D': 1.2, 'B-D': 1.5}
+}
+
+def predict_traffic(source, target, period='morning'):
+    path = nx.shortest_path(G, source, target, weight='base_time')
+    total_time = 0
+    for i in range(len(path)-1):
+        u, v = path[i], path[i+1]
+        edge = f"{u}-{v}"
+        base_time = G[u][v]['base_time']
+        factor = traffic_factor[period].get(edge, 1)
+        total_time += base_time * factor
+    return path, total_time
+
+path, eta = predict_traffic('A', 'D', 'morning')
+print("Path:", path)
+print("ETA:", round(eta, 2), "mins")
+        </code></div>
+    </div>
+
+    
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number">1B+</div>
+            <div class="stat-label">Active Users</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">200+</div>
+            <div class="stat-label">Covered Countries</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">70M+</div>
+            <div class="stat-label">Daily GPS Signals</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">500ms</div>
+            <div class="stat-label">Prediction Latency</div>
+        </div>
+    </div>
+
+    <div class="algorithm-section">
+        <h3>Efficiency Analysis</h3>
+        <table class="efficiency-table">
+            <thead>
+                <tr>
+                    <th>Operation</th>
+                    <th>Time Complexity</th>
+                    <th>Space Complexity</th>
+                    <th>Real-world Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Shortest Path (w/ Traffic)</td>
+                    <td>O(E + V log V)</td>
+                    <td>O(V + E)</td>
+                    <td>Updated every few seconds</td>
+                </tr>
+                <tr>
+                    <td>GNN Traffic Prediction</td>
+                    <td>O(n × t)</td>
+                    <td>O(n × d)</td>
+                    <td>Handles millions of road segments</td>
+                </tr>
+                <tr>
+                    <td>Live ETA Recalculation</td>
+                    <td>O(k log n)</td>
+                    <td>O(n)</td>
+                    <td>Low-latency, user-level predictions</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="inference-box">
+        <h4>🔍 Key Inferences</h4>
+        <p><strong>AI-Driven Routing:</strong> The blend of live sensor data, historical trends, and graph learning ensures highly personalized and responsive routing decisions for users worldwide.</p>
+        <p><strong>Edge Computation:</strong> Many predictions are made on-device using TensorFlow Lite, reducing load on central servers and improving latency.</p>
+    </div>
+
+    <div class="business-impact">
+        <h4>💰 Business Impact</h4>
+        <p>Google Maps Traffic Prediction drives user engagement and retention across Google ecosystem. Accurate ETAs improve user trust, which boosts adoption in navigation, rideshare apps, and delivery services that license Google Maps APIs — generating over $10B annually in enterprise usage revenue.</p>
+    </div>
+</section>
+
+<!-- Additional 5 business cases will be added next -->
+    <!-- Business Case 5: Google Photos Face Clustering -->
+<section id="google-photos-clustering" class="business-case-section">
+  <div class="section-header">
+    <h2>🧠 Google Photos: Face Clustering</h2>
+    <p>Automatically grouping photos of the same person using deep learning and unsupervised clustering</p>
+  </div>
+
+  <div class="concepts-grid">
+    <div class="concept-card">
+      <h3>Problem Statement</h3>
+      <p>With billions of images uploaded by users, Google Photos needs to automatically organize and group faces to improve searchability, album creation, and user memories.</p>
+      <div class="concept-highlight">
+        <strong>Unlabeled Challenge:</strong> Group faces without any user-provided labels or identities while maintaining high precision and scalability.</div>
+    </div>
+
+    <div class="concept-card">
+      <h3>Machine Learning Pipeline</h3>
+      <p>Pipeline consisting of face detection, facial embedding, clustering, and visualization.</p>
+      <div class="concept-highlight">
+        <strong>ML Architecture:</strong><br>
+        • Detection: MTCNN or BlazeFace<br>
+        • Embedding: FaceNet (128D)<br>
+        • Clustering: DBSCAN<br>
+        • Visualization: PCA / T-SNE
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <h3>Algorithm Components</h3>
+      <p>Unsupervised clustering of similar face vectors</p>
+      <div class="concept-highlight">
+        <strong>Key Algorithms:</strong><br>
+        • FaceNet for feature embeddings<br>
+        • DBSCAN for density-based clustering<br>
+        • PCA for dimensionality reduction
+      </div>
+    </div>
+  </div>
+
+  <div class="algorithm-section">
+    <h3>Implementation: Face Clustering Engine</h3>
+    <div class="code-snippet">
+<pre><code>from sklearn.cluster import DBSCAN
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+# embeddings: Nx128 matrix of facial features
+clustering = DBSCAN(eps=0.5, min_samples=2).fit(embeddings)
+labels = clustering.labels_
+
+# Visualize clusters
+pca = PCA(n_components=2)
+reduced = pca.fit_transform(embeddings)
+plt.scatter(reduced[:, 0], reduced[:, 1], c=labels)
+plt.title("Face Clustering Result")
+plt.show()</code></pre>
+    </div>
+  </div>
+
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="stat-number">1B+</div>
+      <div class="stat-label">Faces Grouped</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">40M+</div>
+      <div class="stat-label">Daily Face Detections</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">>95%</div>
+      <div class="stat-label">Clustering Accuracy</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">Offline</div>
+      <div class="stat-label">Runs on Device</div>
+    </div>
+  </div>
+
+  <div class="inference-box">
+    <h4>🔍 Key Inferences</h4>
+    <p><strong>Clustering Robustness:</strong> DBSCAN works well for identifying unknown number of clusters.</p>
+    <p><strong>Privacy First:</strong> Works without identity labels and runs on device for privacy and latency gains.</p>
+  </div>
+
+  <div class="business-impact">
+    <h4>💰 Business Impact</h4>
+    <p>Face clustering improves search, memory creation, and photo management—boosting user retention and satisfaction in Google Photos. Enables features like 'People', 'Memories', and offline face grouping.</p>
+  </div>
+</section>
+
+<!-- Business Case 6: Google Assistant Voice Recognition -->
+<section id="google-assistant-voice" class="business-case-section">
+  <div class="section-header">
+    <h2>🎤 Google Assistant: Voice Recognition</h2>
+    <p>Voice-based user identification and command understanding using advanced speech models</p>
+  </div>
+
+  <div class="concepts-grid">
+    <div class="concept-card">
+      <h3>Problem Statement</h3>
+      <p>Identify and understand voice commands from multiple users, even in noisy environments, for personalized and accurate responses.</p>
+      <div class="concept-highlight">
+        <strong>Multi-user Challenge:</strong> Recognize speaker and intent with background noise and overlapping commands in real-time.</div>
+    </div>
+
+    <div class="concept-card">
+      <h3>Machine Learning Pipeline</h3>
+      <p>Multi-stage audio processing pipeline with real-time optimization.</p>
+      <div class="concept-highlight">
+        <strong>ML Architecture:</strong><br>
+        • VAD: Voice Activity Detection<br>
+        • MFCC Extraction<br>
+        • Deep Learning (LSTM + CNN)<br>
+        • Speaker Verification using d-vectors
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <h3>Algorithm Components</h3>
+      <p>Deep learning models built for fast inference and speaker disambiguation.</p>
+      <div class="concept-highlight">
+        <strong>Key Algorithms:</strong><br>
+        • MFCC for voice features<br>
+        • LSTM for time-series modeling<br>
+        • SVM/d-vector for speaker classification
+      </div>
+    </div>
+  </div>
+
+  <div class="algorithm-section">
+    <h3>Implementation: Speaker Recognition</h3>
+    <div class="code-snippet">
+<pre><code>import librosa
+from sklearn.svm import SVC
+
+# Load audio and extract features
+y, sr = librosa.load("voice_sample.wav", sr=16000)
+mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
+
+# Train or load speaker classifier
+clf = SVC()
+clf.fit(mfcc.T, speaker_labels)
+
+# Predict speaker
+predicted = clf.predict(mfcc.T)</code></pre>
+    </div>
+  </div>
+
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="stat-number">7B+</div>
+      <div class="stat-label">Voice Queries/Month</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">40+</div>
+      <div class="stat-label">Languages Supported</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number"><200ms</div>
+      <div class="stat-label">Avg Latency</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">97%</div>
+      <div class="stat-label">Recognition Accuracy</div>
+    </div>
+  </div>
+
+  <div class="inference-box">
+    <h4>🔍 Key Inferences</h4>
+    <p><strong>Personalized Responses:</strong> Voice identification enables user-specific services like calendars, reminders, and preferences.</p>
+    <p><strong>Latency Critical:</strong> Efficient ML models ensure sub-200ms responses for real-time interaction.</p>
+  </div>
+
+  <div class="business-impact">
+    <h4>💰 Business Impact</h4>
+    <p>Voice recognition powers personalized and multilingual interactions across billions of Google Assistant devices. Improves accessibility, drives user engagement, and expands reach to non-touch interfaces like smart displays and home devices.</p>
+  </div>
+</section>
+<!-- Business Case 7: Google Cloud BigQuery – Enterprise Data Analytics as a Service -->
+<section id="bigquery" class="business-case-section">
+    <div class="section-header">
+        <h2> ☁️ Google Cloud BigQuery – Enterprise Data Analytics as a Service</h2>
+        <p>Fast, scalable analytics platform transforming raw enterprise data into actionable business insights</p>
+    </div>
+
+    <div class="concepts-grid">
+        <div class="concept-card">
+            <h3>Problem Statement</h3>
+            <p>How to deliver fast, scalable analytics to enterprises that transforms raw data into business insights?</p>
+            <div class="concept-highlight">
+                <strong>Key Challenge:</strong> Efficiently query petabyte-scale datasets with low latency while supporting complex analytics and integration with AI/ML workflows.
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Core Algorithm Concepts</h3>
+            <p>BigQuery leverages distributed SQL query engines optimized for petabyte-scale data and cost-based query optimization techniques.</p>
+            <div class="concept-highlight">
+                <strong>Highlights:</strong><br>
+                • Distributed execution with columnar storage<br>
+                • Cost-based query optimization and caching<br>
+                • Seamless integration with AI/ML pipelines for predictive analytics
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Data Structures Used</h3>
+            <p>Efficient columnar data storage and indexing structures enable rapid analytics.</p>
+            <div class="concept-highlight">
+                <strong>Key Structures:</strong><br>
+                • Columnar storage (capacities for compression and fast scans)<br>
+                • Distributed hash tables for join operations<br>
+                • Caches for query result reuse and optimization
+            </div>
+        </div>
+    </div>
+
+    <div class="algorithm-section">
+        <h3>Implementation: Distributed SQL Query Engine</h3>
+        <div class="code-snippet">
+<pre><code>class BigQueryEngine:
+    def __init__(self, data_nodes):
+        self.data_nodes = data_nodes
+        self.cache = {}
+
+    def execute_query(self, sql_query):
+        if sql_query in self.cache:
+            return self.cache[sql_query]  # Return cached result
+
+        # Parse and optimize query plan
+        query_plan = self.optimize_query(sql_query)
+
+        # Distribute query across nodes
+        results = []
+        for node in self.data_nodes:
+            result = node.run_subquery(query_plan[node.id])
+            results.append(result)
+
+        # Aggregate partial results
+        final_result = self.aggregate_results(results)
+
+        # Cache the result for future queries
+        self.cache[sql_query] = final_result
+
+        return final_result
+
+    def optimize_query(self, sql_query):
+        # Cost-based optimization logic here
+        pass
+
+    def aggregate_results(self, results):
+        # Merge partial results from nodes
+        pass
+</code></pre>
+        </div>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number">Petabyte+</div>
+            <div class="stat-label">Data Scale Supported</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">Sub-seconds</div>
+            <div class="stat-label">Typical Query Latency</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">1000s</div>
+            <div class="stat-label">Enterprise Customers</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">$1B+</div>
+            <div class="stat-label">Annual Revenue Impact</div>
+        </div>
+    </div>
+
+    <div class="algorithm-section">
+        <h3>Efficiency Analysis</h3>
+        <table class="efficiency-table">
+            <thead>
+                <tr>
+                    <th>Operation</th>
+                    <th>Time Complexity</th>
+                    <th>Space Complexity</th>
+                    <th>Real-world Performance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Query Parsing & Optimization</td>
+                    <td>O(n)</td>
+                    <td>O(1)</td>
+                    <td>Milliseconds to seconds</td>
+                </tr>
+                <tr>
+                    <td>Distributed Query Execution</td>
+                    <td>O(m log n)</td>
+                    <td>O(n)</td>
+                    <td>Scales linearly with data nodes</td>
+                </tr>
+                <tr>
+                    <td>Result Aggregation</td>
+                    <td>O(n)</td>
+                    <td>O(n)</td>
+                    <td>Efficient merging of partial results</td>
+                </tr>
+                <tr>
+                    <td>Cache Lookup</td>
+                    <td>O(1)</td>
+                    <td>O(k)</td>
+                    <td>Instant query reuse</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="inference-box">
+        <h4>🔍 Key Inferences</h4>
+        <p><strong>Scalability:</strong> Distributed architecture enables interactive analytics on extremely large datasets.</p>
+        <p><strong>Flexibility:</strong> Integration with AI/ML pipelines enhances predictive analytics capabilities.</p>
+        <p><strong>Cost Efficiency:</strong> Cost-based optimization ensures users only pay for resources used.</p>
+    </div>
+
+    <div class="business-impact">
+        <h4>💰 Business Impact</h4>
+        <p>BigQuery generated billions in revenue by driving large-scale enterprise adoption, helping businesses unlock critical insights and innovate rapidly with cloud-native analytics.</p>
+    </div>
+</section>
+<!-- Business Case 8: Google Pay - Scalable Digital Payments Infrastructure -->
+<section id="google-pay" class="business-case-section">
+    <div class="section-header">
+        <h2>₹ Google Pay – Scalable Digital Payments Infrastructure</h2>
+        <p>Enabling secure, real-time UPI-based digital transactions across diverse banking systems in India</p>
+    </div>
+
+    <div class="concepts-grid">
+        <div class="concept-card">
+            <h3>Problem Statement</h3>
+            <p>Facilitate seamless, real-time money transfers for millions of users while integrating with hundreds of banks and maintaining security at scale.</p>
+            <div class="concept-highlight">
+                <strong>Key Challenge:</strong> Achieve reliability, speed, and fraud protection for 10B+ monthly transactions across various banks and devices.
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Core Algorithm Concepts</h3>
+            <p>Google Pay integrates advanced financial protocols and intelligent security mechanisms.</p>
+            <div class="concept-highlight">
+                <strong>Key Techniques:</strong><br>
+                • UPI Payment Routing<br>
+                • Tokenization for device-bound virtual card mapping<br>
+                • Real-time anomaly detection using time-series and clustering<br>
+                • OAuth 2.0 + Multi-Factor Authentication
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Data Structures Used</h3>
+            <p>Scalable data structures support fraud detection, transaction history, and session management.</p>
+            <div class="concept-highlight">
+                <strong>Key Structures:</strong><br>
+                • Hash Maps - Fast transaction retrieval and lookup<br>
+                • Bloom Filters - Quick fraud pattern matching<br>
+                • Queues - Real-time transaction processing<br>
+                • Graph Structures - Detecting cyclic or fraudulent paths in transaction flows
+            </div>
+        </div>
+    </div>
+
+    <div class="algorithm-section">
+        <div class="concepts-grid">
+    <div class="concept-card">
+        <h3>Data Structures Used</h3>
+        <p>Efficient data structures for processing billions of secure transactions in real-time:</p>
+
+        <strong>• Hash Maps – Fast Transaction Lookup</strong>
+        <div class="code-snippet">
+            
+            <pre><code>transaction_map = {}
+
+def add_transaction(tx_id, details):
+    transaction_map[tx_id] = details
+
+def get_transaction(tx_id):
+    return transaction_map.get(tx_id, "Not found")</code></pre>
+        </div>
+
+         <strong>• Bloom Filters – Quick Fraud Pattern Detection</strong>
+        <div class="code-snippet">
+           
+            <pre><code>bloom_filter = BloomFilter(size=10000)
+
+def add_fraud_pattern(pattern):
+    for h in hash_functions:
+        bloom_filter.set_bit(h(pattern))
+
+def is_suspicious(pattern):
+    return all(bloom_filter.check_bit(h(pattern)) for h in hash_functions)</code></pre>
+        </div>
+
+        <strong>• Queues – Real-time Transaction Processing</strong>
+        <div class="code-snippet">
+            
+            <pre><code>transaction_queue = Queue()
+
+def receive_transaction(tx):
+    transaction_queue.enqueue(tx)
+
+def process_queue():
+    while not transaction_queue.is_empty():
+        tx = transaction_queue.dequeue()
+        validate(tx)</code></pre>
+        </div>
+
+        <strong>• Graph Structures – Fraud Ring / Cycle Detection</strong>
+        <div class="code-snippet">
+            
+            <pre><code>graph = DirectedGraph()
+
+def add_transfer(from_acc, to_acc):
+    graph.add_edge(from_acc, to_acc)
+
+def detect_cycle():
+    visited = set()
+    stack = set()
+
+    def dfs(node):
+        visited.add(node)
+        stack.add(node)
+        for neighbor in graph.get_neighbors(node):
+            if neighbor not in visited and dfs(neighbor):
+                return True
+            elif neighbor in stack:
+                return True
+        stack.remove(node)
+        return False</code></pre>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number">10B+</div>
+            <div class="stat-label">Monthly Transactions</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Banks Integrated</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">$1T+</div>
+            <div class="stat-label">Annual Payment Volume</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">200ms</div>
+            <div class="stat-label">Avg. Transaction Time</div>
+        </div>
+    </div>
+
+    <div class="algorithm-section">
+        <h3>Efficiency Analysis</h3>
+        <table class="efficiency-table">
+            <thead>
+                <tr>
+                    <th>Operation</th>
+                    <th>Time Complexity</th>
+                    <th>Space Complexity</th>
+                    <th>Real-world Performance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Transaction Lookup</td>
+                    <td>O(1)</td>
+                    <td>O(n)</td>
+                    <td>Instant UPI status checks</td>
+                </tr>
+                <tr>
+                    <td>Token Generation</td>
+                    <td>O(1)</td>
+                    <td>O(1)</td>
+                    <td>Secure device-auth mapping</td>
+                </tr>
+                <tr>
+                    <td>Anomaly Detection</td>
+                    <td>O(n)</td>
+                    <td>O(n)</td>
+                    <td>Detects fraud patterns in < 1s</td>
+                </tr>
+                <tr>
+                    <td>Bank Routing</td>
+                    <td>O(log n)</td>
+                    <td>O(n)</td>
+                    <td>Optimized through indexed lookups</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="inference-box">
+        <h4>🔍 Key Inferences</h4>
+        <p><strong>Innovation:</strong> Google Pay's success lies in blending simple UI with complex, robust backend protocols. Real-time anomaly detection secures transactions without interrupting UX.</p>
+        <p><strong>Strategic Leverage:</strong> Integration with India’s UPI system gives Google Pay massive transaction volume, brand trust, and access to financial behavioral data for future fintech innovation.</p>
+    </div>
+
+    <div class="business-impact">
+        <h4>💰 Business Impact</h4>
+        <p>Google Pay processes over 10B+ transactions monthly, with trillions in value annually. It is pivotal in Google’s fintech ecosystem, monetizing via merchant tools, transaction insights, and platform fees.</p>
+    </div>
+</section>
+
+
+<!-- Business Case 9: YouTube Content ID – Automated Copyright Detection -->
+<section id="youtube-content-id" class="business-case-section">
+    <div class="section-header">
+        <h2>🔍 YouTube Content ID – Automated Copyright Detection</h2>
+        <p>Detecting and managing copyrighted content across millions of hours of video uploads using advanced fingerprinting and matching algorithms</p>
+    </div>
+
+    <div class="concepts-grid">
+        <div class="concept-card">
+            <h3>Problem Statement</h3>
+            <p>Over 500 hours of video are uploaded to YouTube every minute. The challenge is to detect copyrighted content at scale and in real-time, even with altered versions (cropped, pitched, trimmed).</p>
+            <div class="concept-highlight">
+                <strong>Key Challenge:</strong> Efficient and scalable fingerprinting and lookup of audio/video snippets in a vast global content database.
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Core Algorithm Concepts</h3>
+            <p>YouTube Content ID relies on robust fingerprinting and distributed comparison for identifying copyrighted material.</p>
+            <div class="concept-highlight">
+                <strong>Techniques Used:</strong><br>
+                • Audio/Video Fingerprinting (Shazam-style hashlets)<br>
+                • Perceptual Hashing for noisy matches<br>
+                • Bloom Filters for fast presence checking<br>
+                • MapReduce for parallel matching at scale
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Data Structures Used</h3>
+            <p>Efficient structures enable high-speed matching of billions of fingerprints.</p>
+            <div class="concept-highlight">
+                <strong>Key Structures:</strong><br>
+                • Hash Maps – Video segment to fingerprint mapping<br>
+                • Bloom Filters – Quick detection of known fingerprints<br>
+                • Priority Queues – Sorting top matched segments<br>
+                • Distributed Index Trees – Sharded video databases
+            </div>
+        </div>
+    </div>
+
+    <div class="algorithm-section">
+        <h3>Implementation: Video Fingerprinting Detection</h3>
+        <div class="code-snippet">
+<pre><code># Step 1: Generate perceptual fingerprint
+def generate_fingerprint(frame):
+    return hash(perceptual_hash(frame))
+
+# Step 2: Store fingerprints in distributed index
+index = defaultdict(list)
+
+def store_video(video_id, frames):
+    for i, frame in enumerate(frames):
+        fingerprint = generate_fingerprint(frame)
+        index[fingerprint].append((video_id, i))
+
+# Step 3: Match uploaded video
+def match_video(uploaded_frames):
+    matches = []
+    for i, frame in enumerate(uploaded_frames):
+        fingerprint = generate_fingerprint(frame)
+        if fingerprint in index:
+            matches.extend(index[fingerprint])
+    return matches
+</code></pre>
+        </div>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number">$40B+</div>
+            <div class="stat-label">Monetized via Content ID</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">500 hrs</div>
+            <div class="stat-label">Video Uploaded/Min</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">95%</div>
+            <div class="stat-label">Detection Accuracy</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">50M+</div>
+            <div class="stat-label">Reference Files Indexed</div>
+        </div>
+    </div>
+
+    <div class="algorithm-section">
+        <h3>Efficiency Analysis</h3>
+        <table class="efficiency-table">
+            <thead>
+                <tr>
+                    <th>Operation</th>
+                    <th>Time Complexity</th>
+                    <th>Space Complexity</th>
+                    <th>Real-world Performance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Fingerprint Generation</td>
+                    <td>O(n)</td>
+                    <td>O(1)</td>
+                    <td>~20ms/frame</td>
+                </tr>
+                <tr>
+                    <td>Bloom Filter Check</td>
+                    <td>O(1)</td>
+                    <td>O(n)</td>
+                    <td>Microseconds per lookup</td>
+                </tr>
+                <tr>
+                    <td>Matching (MapReduce)</td>
+                    <td>O(log n)</td>
+                    <td>O(n)</td>
+                    <td>Scalable to petabyte scale</td>
+                </tr>
+                <tr>
+                    <td>Index Insert/Retrieve</td>
+                    <td>O(1)</td>
+                    <td>O(n)</td>
+                    <td>Fast shard-based access</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="inference-box">
+        <h4>🔍 Key Inferences</h4>
+        <p><strong>Technical Innovation:</strong> YouTube’s perceptual hashing and fingerprinting tolerate noise (e.g., pitch shift, video filters) while still finding matches accurately.</p>
+        <p><strong>Scale Engineering:</strong> By using MapReduce and sharded databases, YouTube matches billions of content segments in near real-time.</p>
+    </div>
+
+    <div class="business-impact">
+        <h4>💰 Business Impact</h4>
+        <p>YouTube Content ID has become a foundational monetization engine, protecting content rights while enabling content owners to earn revenue. It’s estimated to have driven over $40B+ in monetization and copyright protection globally.</p>
+    </div>
+</section>
+<!-- Business Case: YouTube Premium & Music Subscription -->
+<section id="youtube-premium" class="business-case-section">
+    <div class="section-header">
+        <h2>🎵 YouTube Premium & Music Subscriptions</h2>
+        <p>Monetizing content and user experience through ad-free video streaming and music services</p>
+    </div>
+
+    <div class="concepts-grid">
+        <div class="concept-card">
+            <h3>Problem Statement</h3>
+            <p>With increasing demand for ad-free content and offline viewing, Google aimed to create a scalable subscription model for YouTube while compensating creators and competing with services like Spotify and Netflix.</p>
+            <div class="concept-highlight">
+                <strong>Key Challenge:</strong> Provide premium video/audio experiences while minimizing churn and balancing creator payouts.
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Core Algorithm Concepts</h3>
+            <p>YouTube uses engagement prediction models and ML-driven personalization to optimize content recommendations and subscription conversions.</p>
+            <div class="concept-highlight">
+                <strong>Key Concepts:</strong><br>
+                • Collaborative Filtering for music/video suggestions<br>
+                • Reinforcement Learning for "Up Next" autoplay<br>
+                • Dynamic Paywall Model for free vs. premium content<br>
+                • LTV (Lifetime Value) prediction for subscriber targeting
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h3>Data Structures Used</h3>
+            <p>Efficient data structures for streaming history, recommendation graphs, and billing records.</p>
+            <div class="concept-highlight">
+                <strong>Structures:</strong><br>
+                • Graphs - User-content relationship mapping<br>
+                • Hash Maps - Billing info and subscription status<br>
+                • Priority Queues - Trending videos/music<br>
+                • Bloom Filters - Skipped/ad-blocked content filtering
+            </div>
+        </div>
+    </div>
+
+    <div class="algorithm-section">
+        <h3>Implementation: Personalized Recommendation Engine</h3>
+        <div class="code-snippet">
+<pre><code>class Recommender:
+    def __init__(self, user_history, content_graph):
+        self.history = user_history
+        self.graph = content_graph
+
+    def recommend_next(self, current_video):
+        related = self.graph.get(current_video, [])
+        scored = [(video, self.history.get(video, 0)) for video in related]
+        scored.sort(key=lambda x: -x[1])
+        return [video for video, _ in scored[:5]]
+</code></pre>
+        </div>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number">100M+</div>
+            <div class="stat-label">Subscribers (2024)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">$15.9B</div>
+            <div class="stat-label">Subscription Revenue</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">>90%</div>
+            <div class="stat-label">Retention Rate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">120+</div>
+            <div class="stat-label">Supported Countries</div>
+        </div>
+    </div>
+
+    <div class="algorithm-section">
+        <h3>Efficiency Analysis</h3>
+        <table class="efficiency-table">
+            <thead>
+                <tr>
+                    <th>Operation</th>
+                    <th>Time Complexity</th>
+                    <th>Space Complexity</th>
+                    <th>Real-world Performance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Recommendation Lookup</td>
+                    <td>O(log n)</td>
+                    <td>O(n)</td>
+                    <td>Sub-200ms for top 10</td>
+                </tr>
+                <tr>
+                    <td>User History Update</td>
+                    <td>O(1)</td>
+                    <td>O(n)</td>
+                    <td>Real-time engagement tracking</td>
+                </tr>
+                <tr>
+                    <td>Subscription Billing</td>
+                    <td>O(1)</td>
+                    <td>O(1)</td>
+                    <td>Monthly scheduled with failover</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="inference-box">
+        <h4>🔍 Key Inferences</h4>
+        <p><strong>Monetization Strategy:</strong> Combining ad-free video, music, and YouTube Originals attracts diverse users, driving LTV up.</p>
+        <p><strong>Tech Differentiator:</strong> Google’s cross-platform personalization enables seamless content transitions between YouTube, YouTube Music, and Google Assistant.</p>
+    </div>
+
+    <div class="business-impact">
+        <h4>💰 Business Impact</h4>
+        <p>YouTube Premium and Music subscriptions contribute significantly to Google’s $34.7B subscription revenue, with >100M users and global reach. It ensures recurring income, strengthens user loyalty, and monetizes premium content beyond ads.</p>
+    </div>
+</section>
+
+<!-- 📚 References Section -->
+<section id="references" class="business-case-section">
+  <div class="section-header">
+    <h2>📚 References & Sources</h2>
+    <p>These references provide the foundational information and insights for the business case studies presented.</p>
+  </div>
+
+  <ol class="references-list">
+    <li>Page, L., Brin, S., Motwani, R., & Winograd, T. (1999). <em>The PageRank Citation Ranking: Bringing Order to the Web</em>. Stanford InfoLab.</li>
+
+    <li>Dean, J., & Ghemawat, S. (2008). <em>MapReduce: Simplified Data Processing on Large Clusters</em>. Communications of the ACM, 51(1), 107–113.</li>
+
+    <li>Alphabet Inc. (2023). <em>Annual Report (Form 10-K)</em>. United States Securities and Exchange Commission (SEC). Retrieved from <a href="https://abc.xyz/investor/" target="_blank">https://abc.xyz/investor/</a></li>
+
+    <li>Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2009). <em>Introduction to Algorithms</em> (3rd ed.). MIT Press.</li>
+
+    <li>Google Research. (2023). <em>Research Publications</em>. Retrieved from <a href="https://research.google.com" target="_blank">https://research.google.com</a></li>
+
+    <li>Varian, H. R. (2007). <em>Position Auctions</em>. International Journal of Industrial Organization, 25(6), 1163–1178.</li>
+
+    <li>Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). <em>ImageNet Classification with Deep Convolutional Neural Networks</em>. NeurIPS.</li>
+
+    <li>Abadi, M., et al. (2016). <em>TensorFlow: A System for Large-Scale Machine Learning</em>. OSDI '16: USENIX Symposium.</li>
+
+    <li>Schroff, F., Kalenichenko, D., & Philbin, J. (2015). <em>FaceNet: A Unified Embedding for Face Recognition and Clustering</em>. IEEE CVPR.</li>
+
+    <li>Google Cloud. (2023). <em>BigQuery Documentation</em>. Retrieved from <a href="https://cloud.google.com/bigquery/docs" target="_blank">https://cloud.google.com/bigquery/docs</a></li>
+
+    <li>Google AI Blog. (2023). <em>Machine Learning at YouTube Scale</em>. Retrieved from <a href="https://ai.googleblog.com/" target="_blank">https://ai.googleblog.com/</a></li>
+
+    <li>YouTube Official Blog. (2023). <em>Understanding YouTube’s Content ID System</em>. Retrieved from <a href="https://blog.youtube/news-and-events/content-id/" target="_blank">https://blog.youtube/news-and-events/content-id/</a></li>
+
+    <li>Google Pay for Business. (2023). <em>UPI & Tokenization Security Architecture</em>. Retrieved from <a href="https://pay.google.com/about/business/" target="_blank">https://pay.google.com/about/business/</a></li>
+
+    <li>Google Developers Blog. (2023). <em>Search Quality and Ranking Systems</em>. Retrieved from <a href="https://developers.google.com/search/blog" target="_blank">https://developers.google.com/search/blog</a></li>
+
+    <li>Google Assistant Documentation. (2023). <em>Speech Recognition and NLP</em>. Retrieved from <a href="https://developers.google.com/assistant" target="_blank">https://developers.google.com/assistant</a></li>
+
+    <li>Google Photos Help & Tech. (2023). <em>Face Clustering and Recognition using ML</em>. Retrieved from <a href="https://support.google.com/photos/" target="_blank">https://support.google.com/photos/</a></li>
+
+    <li>Google Cloud Blog. (2023). <em>Scaling Real-Time Data Infrastructure</em>. Retrieved from <a href="https://cloud.google.com/blog" target="_blank">https://cloud.google.com/blog</a></li>
+
+    <li>Spotify R&D and ML (Referenced for comparison). (2023). <em>Music Recommendation Systems</em>. Retrieved from <a href="https://research.atspotify.com" target="_blank">https://research.atspotify.com</a></li>
+
+    <li>TechCrunch / The Verge / Wired Reports on Alphabet Revenue. (2023). Aggregated financial analysis used for case prioritization.</li>
+  </ol>
+</section>
