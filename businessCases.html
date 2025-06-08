@@ -430,6 +430,20 @@
     margin-left: 220px; /* Space for left nav */
     padding-top: 100px; /* Space for top nav */
 }
+.gif-container {
+      border: 4px solid #4CAF50;
+      border-radius: 15px;
+      padding: 15px;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .gif-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
 
     </style>
 </head>
@@ -539,6 +553,11 @@
         return auction_results
              </pre></code>  </div>
             </div>
+    <h2>Trie Example</h2>
+            <div class="gif-container">
+                <p>Trie Example</p>
+    <img src="images/Trie_example.svg.png" alt="Animated GIF">
+  </div>
 
             <div class="stats-container">
                 <div class="stat-card">
@@ -960,6 +979,9 @@ print("Path:", path)
 print("ETA:", round(eta, 2), "mins")
         </code></div>
     </div>
+    <div class="gif-container">
+    <img src="images/Dijkstra_Animation.gif" alt="Animated GIF">
+  </div>
 
     
 
@@ -1087,6 +1109,10 @@ plt.title("Face Clustering Result")
 plt.show()</code></pre>
     </div>
   </div>
+  <h2>DBSCAN Example</h2>
+  <div class="gif-container">
+    <img src="images/DBscan.gif" alt="Animated GIF">
+  </div>
 
   <div class="stats-container">
     <div class="stat-card">
@@ -1175,6 +1201,12 @@ clf.fit(mfcc.T, speaker_labels)
 # Predict speaker
 predicted = clf.predict(mfcc.T)</code></pre>
     </div>
+  </div>
+
+  <h2>SVM example</h2>
+
+  <div class="gif-container" style="height: 300px; width: 500px;">
+    <img src="images/svm.gif" alt="Animated GIF">
   </div>
 
   <div class="stats-container">
@@ -1468,9 +1500,11 @@ def detect_cycle():
         </div>
     </div>
 </div>
-
-    </div>
-
+</div>
+<h2>Bloom Filter Example</h2>
+    <div class="gif-container">
+    <img src="images/bloomfilter.gif" alt="Animated GIF">
+  </div>
     <div class="stats-container">
         <div class="stat-card">
             <div class="stat-number">10B+</div>
@@ -1681,7 +1715,7 @@ def match_video(uploaded_frames):
         <p>YouTube Content ID has become a foundational monetization engine, protecting content rights while enabling content owners to earn revenue. It’s estimated to have driven over $40B+ in monetization and copyright protection globally.</p>
     </div>
 </section>
-<!-- Business Case: YouTube Premium & Music Subscription -->
+<!-- Business Case:10 YouTube Premium & Music Subscription -->
 <section id="youtube-premium" class="business-case-section">
     <div class="section-header">
         <h2>🎵 YouTube Premium & Music Subscriptions</h2>
